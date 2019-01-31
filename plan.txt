@@ -1,0 +1,19 @@
+Plan for Attendance Script
+
+Purpose:
+	The objective of this script is to automate the functions of the Admin for tracking attendance. The actions that will
+	be automated will be Personal Days (PB), Diarrhea and Vomitting (DV), and No Call No Show (NCNS). 
+	
+Objective:
+	When a callout occurs the students can be recorded as absent for whatever reason and it will be recorded.
+	
+Future Goals:
+	Be able to track late notices
+	Be able to automate printing Memos and Write ups for attendance
+
+	
+Notes:
+	Should be able to interface with a gui. components should be
+		name (order?)
+		reason (late, pb, dv, ncns)
+		

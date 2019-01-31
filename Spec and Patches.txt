@@ -1,0 +1,20 @@
+Version 1.0:
+	Very robust version of the system. All input through console.
+
+	Recording attendance
+		1	insert name of student 
+		2	insert reason for report (ncns, pb, etc)
+		3	submit
+		
+	Updating list
+		1	download newest csv from canvas manually
+		2	input csv file name
+		3	use list of records to update the attendace
+
+		
+Version 1.1:
+	Additions:
+		-Recording the date and time (AM/PM) and type of infraction in comments
+		-Looking into autocompletion for names
+	Fixes:
+		-Making it so comparison is not case sensative
