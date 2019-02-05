@@ -18,23 +18,30 @@ try:
     names_raw = []
 
     for row in attList:
-        names_raw.append(row[0])
+        names_raw.append(row[0].lower())
 
     # Loop through the records (rec) and edit the attendance (att)
     # records are in edits [row][column]
     # First locate name in list to get row
+
+    # Info for the attendance csv file
     # column 0 is the names (edits [nameIndex] [0])
-    # column 5 is the attendance of PBs (edits [nameIndex] [5])
+    # column 4 is the date of the absense of  (edits [nameIndex] [4])
+    # column 5 is the number of absences (edits [nameIndex] [5])
     for row in recordList:
         name = row[0]
         reason = row[1]
-        if name in names_raw:
+        date = row[2]
+
+        print(name)
+        if name.lower() in names_raw:
             print(name + "\n" + reason)
             nameIndex = names_raw.index(name) # row = name index
             #Different edits based on the reason
             if reason == "PB" or reason == "NCNS":
                 print(attList[nameIndex][5])
                 attList[nameIndex][5] = str(float(attList[nameIndex][5]) + 1)
+                attList[nameIndex][4] = attList[nameIndex][4] + "\n" + date  + " : " + reason
                 print(attList[nameIndex][5])
 
     writeAtt = open('owens_test_out.csv', 'w', newline='')
