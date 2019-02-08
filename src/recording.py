@@ -1,14 +1,18 @@
 import csv
 import sys
 import datetime
+from datetime import date
 
 more = 'y' # Settingfactor for while loop
-record = open ("record.csv", "w") #opening records csv file for writing. Will erase the old csv everytime
-
+today = str(date.today())
 year = datetime.date.today().year
 default_option = "current"
 prev_month = 0
 prev_day = 0
+
+file_name = "record_" + today + ".csv"
+#opening records csv file for writing
+record = open (file_name, "w")
 
 # Recording Loop
 while more == 'y':
@@ -40,7 +44,7 @@ while more == 'y':
 
     date = datetime.datetime(int(year), int(month), int(day))
 
-    # Writing the name to the csv file. Name must be in quotations to be in one cell
+    # Writing data to make a line in csv file
     # Format: "LastName, FirstName",Reason
     record.write("\"" + last_name + ", " + first_name + "\"" + "," +
                 reason + "," +

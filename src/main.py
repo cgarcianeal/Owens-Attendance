@@ -1,11 +1,10 @@
 import csv
 from datetime import date
 
-# Initializing the date of edits
-today = str(date.today())
-
 #Getting the data (Name, reason) from the record file into a list (recordList)
-record = open ("record.csv", "r")
+today = str(date.today())
+record_file_name = "record_" + today + ".csv"
+record = open (record_file_name, "r")
 recR = csv.reader(record)
 recordList = list(recR)
 
@@ -43,8 +42,10 @@ try:
                 attList[nameIndex][5] = str(float(attList[nameIndex][5]) + 1)
                 attList[nameIndex][4] = attList[nameIndex][4] + "\n" + date  + " : " + reason
                 print(attList[nameIndex][5])
+    #endfor
 
-    writeAtt = open('owens_test_out.csv', 'w', newline='')
+    outfile_name = 'owens_test_' + today + '.csv'
+    writeAtt = open(outfile_name, 'w', newline='')
     writer = csv.writer(writeAtt)
     writer.writerows(attList)
 
