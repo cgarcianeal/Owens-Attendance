@@ -8,6 +8,7 @@ record = open (record_file_name, "r")
 recR = csv.reader(record)
 recordList = list(recR)
 
+heelo =  "st"
 #Opening the attendance file for editing
 fname = input("What is the name of the attendance file?\n")
 try:
