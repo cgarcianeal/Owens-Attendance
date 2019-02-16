@@ -18,7 +18,8 @@ try:
     names_raw = []
 
     for row in attList:
-        names_raw.append(row[0].lower())
+        if "," in row[0]:
+            names_raw.append(row[0])
 
     # Loop through the records (rec) and edit the attendance (att)
     # records are in edits [row][column]
@@ -34,7 +35,7 @@ try:
         date = row[2]
 
         print(name)
-        if name.lower() in names_raw:
+        if name in names_raw:
             print(name + "\n" + reason)
             nameIndex = names_raw.index(name) # row = name index
             #Different edits based on the reason
