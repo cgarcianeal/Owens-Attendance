@@ -6,6 +6,7 @@ import datetime
 from datetime import date
 from tkinter import filedialog
 import csv
+import os
 
 class att_gui:
     def __init__(self, master, names_list):
@@ -32,6 +33,9 @@ class att_gui:
         file_name = "record_" + today + ".csv"
         #opening records csv file for writing
         record = open (file_name, "w")
+
+        #Setting the icon
+        root.iconphoto(True, PhotoImage(file=os.path.join(sys.path[0], "/home/cgn/Documents/att/src/owens_logo.png")))
 
         self.master = master
         master.title("Attendance Recorder")
@@ -78,7 +82,10 @@ class att_gui:
         #Making a button to record the names and dates
         self.record_button = Button(self.datesFrame, text="Record name", command=print_selected).pack(side=BOTTOM)
         self.master.bind("<Return>", print_selected)
+        self.master.bind("<KP_Enter>", print_selected)
         self.master.protocol("WM_DELETE_WINDOW", on_closing)
+
+
 
         self.master.geometry("540x220")
 
@@ -96,6 +103,7 @@ if __name__ == "__main__":
     for row in attList:
         if "," in row[0]:
             names_raw.append(row[0])
+    att.close()
 
     wind = att_gui(root, names_raw)
     root.mainloop()
