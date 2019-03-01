@@ -51,7 +51,7 @@ class att_gui:
         self.datesFrame.pack(side=BOTTOM)
 
         #1) Creating a label and combobox for the student names
-        self.topLabel = Label(self.namesFrame, text="1) Choose a name")
+        self.topLabel = Label(self.namesFrame, text="1) Choose a name", fg='white')
         self.topLabel.pack()
 
         self.names_box = Combobox(self.namesFrame, values=self.names, width=30)
@@ -59,7 +59,7 @@ class att_gui:
         self.names_box.pack()
 
         #2) Creating a label and combobox for the reason
-        self.midLabel = Label(self.namesFrame, text="2) Reason")
+        self.midLabel = Label(self.namesFrame, text="2) Reason", fg='white')
         self.midLabel.pack()
 
         self.reasons = ["PB", "NCNS"]
@@ -69,7 +69,7 @@ class att_gui:
 
         #3) Creating a label and comboboxes for the dates
         #Entry for
-        self.botLabel = Label(self.datesFrame, text="3) Enter a date")
+        self.botLabel = Label(self.datesFrame, text="3) Enter a date", fg='white')
         self.botLabel.pack()
         self.months_box = Entry(self.datesFrame, bg="white", fg="black", width=10)
         self.months_box.insert(END,"month")
@@ -80,26 +80,32 @@ class att_gui:
         self.days_box.pack(side=LEFT)
 
         #Making a button to record the names and dates
-        self.record_button = Button(self.datesFrame, text="Record name", command=print_selected).pack(side=BOTTOM)
+        self.record_button = Button(self.datesFrame, text="Record name", command=print_selected, fg='white').pack(side=BOTTOM)
         self.master.bind("<Return>", print_selected)
         self.master.bind("<KP_Enter>", print_selected)
         self.master.protocol("WM_DELETE_WINDOW", on_closing)
 
 
-
-        self.master.geometry("540x220")
-
-
 if __name__ == "__main__":
+    #Making the root Tk object
     root = Tk()
-    root.option_add('*TCombobox*Listbox.foreground', "black")
+    #Setting the default font color to be black
+    root.option_add('*foreground', 'black')  # set all tk widgets' foreground to black
+    root.option_add('*activeForeground', 'black')  # set all tk widgets' foreground to black
+    #Used to make it so that the filedialog and other window show above other windows
+    root.lift()
+    #Opening main window in the center of the screen
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    root.geometry("550x250+%d+%d" % (screen_width/2-275, screen_height/2-125))
     #Opening a file dialog so the use can select the attendance file to use for the names
     root.filename =  filedialog.askopenfilename(initialdir = "~/Downloads/",title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
+    #Using the file to load the names so be used as options on the new recording session
     att = open(root.filename, 'rt')
     attR = csv.reader(att)
     attList = list(attR)
     names_raw = []
-
+    #elimination non-names
     for row in attList:
         if "," in row[0]:
             names_raw.append(row[0])

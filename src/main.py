@@ -20,17 +20,14 @@ def needs_writeup(name, date, days_used, reason):
     elif reason == "2nd NCNS":
         print(name + " 2nd ncns writeup")
         disciplinary_action_list.append(name + " 2nd ncns writeup")
-    elif days_used == 5:
-        print(name + " 5 PB writeup")
-        disciplinary_action_list.append(name + " 5 PB writeup")
-    elif days_used >= 6:
-        print(name + " 6 pb writeup")
-        disciplinary_action_list.append(name + " 6 pb writeup")
+    elif days_used >= 5:
+        print(name + " " + str(int(days_used)) + " PB writeup")
+        disciplinary_action_list.append(name + " " + str(int(days_used)) + " PB writeup")
 
 def needs_termination(name, date, days_used, reason):
     if days_used >= 6:
-        print(name + " terminated for 6 PB")
-        disciplinary_action_list.append(name + " terminated for 6 PB")
+        print(name + " terminated for > 6 PB")
+        disciplinary_action_list.append(name + " terminated for > 6 PB")
     else:
         print(name + " terminated for 2 ncns")
         disciplinary_action_list.append(name + " terminated for 2 ncns")
@@ -122,6 +119,7 @@ try:
     writer.writerows(attList)
 
     print("\nResults output to " + outfile_name)
+
     for elem in disciplinary_action_list:
         print(elem)
 
