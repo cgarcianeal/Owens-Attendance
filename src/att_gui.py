@@ -7,6 +7,10 @@ from datetime import date
 from tkinter import filedialog
 import csv
 import os
+import shutil
+
+today = str(date.today())
+folder_name = today + "_attendance"
 
 class att_gui:
     def __init__(self, master, names_list):
@@ -18,9 +22,9 @@ class att_gui:
             # Writing data to make a line in csv file
             # Format: "LastName, FirstName",Reason
             record.write("\"" + self.names_box.get() + "\"" + "," +
-                        self.reason_box.get() + "," +
-                        date.strftime("%m/%d/%y") + "\n"
-                        )
+                         self.reason_box.get() + "," +
+                         date.strftime("%m/%d/%y") + "\n"
+                         )
             print(value)
 
         def on_closing():
@@ -28,14 +32,12 @@ class att_gui:
                 record.close()
                 root.destroy()
 
-        today = str(date.today())
         #Open output file
-        file_name = "record_" + today + ".csv"
+        file_name = folder_name + "/record_" + today + ".csv"
         #opening records csv file for writing
         record = open (file_name, "w")
 
-        #Setting the icon
-        root.iconphoto(True, PhotoImage(file=os.path.join(sys.path[0], "/home/cgn/Documents/att/src/owens_logo.png")))
+        #TODO: Setting the icon
 
         self.master = master
         master.title("Attendance Recorder")
@@ -98,6 +100,11 @@ if __name__ == "__main__":
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     root.geometry("550x250+%d+%d" % (screen_width/2-275, screen_height/2-125))
+
+    #This makes a new folder for the attendance of that day
+    folder_name = today + "_attendance"
+    if not os.path.exists(folder_name):
+        os.mkdir(folder_name)
     #Opening a file dialog so the use can select the attendance file to use for the names
     root.filename =  filedialog.askopenfilename(initialdir = "~/Downloads/",title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
     #Using the file to load the names so be used as options on the new recording session
@@ -110,6 +117,8 @@ if __name__ == "__main__":
         if "," in row[0]:
             names_raw.append(row[0])
     att.close()
+    #Copying input file to be updated to folder for this day, and renaming to appropriate date
+    shutil.move(root.filename, folder_name + "/owens_in_" + today +".csv")
 
     wind = att_gui(root, names_raw)
     root.mainloop()
